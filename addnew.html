@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #0A4F51;
+    }
+    .container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff57;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    h2 {
+        text-align: center;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="tel"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 3px solid #0a4f51bf;
+        box-sizing: border-box;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #0A4F51;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color:#107b7e ;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Create Patient Record</h2>
+    <form id="signupForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="pat_id">Patient ID:</label>
+            <input type="text" id="pat_id" name="pat_id" required>
+        </div>
+        <div class="form-group">
+            <label for="pat_name">Patient Name:</label>
+            <input type="text" id="pat_name" name="pat_name" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+        </div>
+        <div class="form-group">
+            <label for="phno">Phone Number:</label>
+            <input type="tel" id="phno" name="phno" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+            <label for="disease">Disease:</label>
+            <input type="text" id="disease" name="disease" required>
+        </div>
+        <div class="form-group">
+            <label for="doc_id">Doctor ID:</label>
+            <input type="text" id="doc_id" name="doc_id" required>
+        </div>
+        <div class="form-group">
+            <label for="doc_name">Doctor Name:</label>
+            <input type="text" id="doc_name" name="doc_name" required>
+        </div>
+        <div class="form-group">
+            <label for="presid">Prescription ID:</label>
+            <input type="text" id="presid" name="presid" required>
+        </div>
+       
+        
+        <div class="form-group">
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    // You can add JavaScript for form validation or other client-side interactions here.
+</script>
+
+</body>
+</html>
