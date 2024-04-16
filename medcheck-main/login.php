@@ -19,25 +19,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    // Hash the password for security
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $check_username_sql = "SELECT username FROM signup WHERE username = ?";
+    $check_stmt = $conn->prepare($check_username_sql);
+    $check_stmt->bind_param("s", $username);
+    $check_stmt->execute();
+    $check_stmt->store_result();
 
-    // Prepare SQL statement to insert data into the database
-    $sql = "INSERT INTO login (username, password) VALUES (?, ?)";
-
-    // Prepare and bind parameters
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $username, $hashed_password);
-
-    // Execute the query
-    if ($stmt->execute()) {
-        echo "New record created successfully";
+    if ($check_stmt->num_rows > 0) {
+        // Username already exists, display a message
+        echo "Username already exists. Please choose a different username.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Username is available, proceed with insertion
+        // Hash the password for security
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Prepare SQL statement to insert data into the database
+        $sql = "INSERT INTO signup (username, password) VALUES (?, ?)";
+
+        // Prepare and bind parameters
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $username, $hashed_password);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            // Redirect to login page
+            header("Location: login.html");
+            exit(); // Make sure no further code execution happens after redirection
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        // Close statement
+        $stmt->close();
     }
 
     // Close statement
-    $stmt->close();
+    $check_stmt->close();
 }
 
 // Close connection
