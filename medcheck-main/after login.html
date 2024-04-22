@@ -59,19 +59,29 @@
             margin: 10px;
         }
         .h4 {
-            
-           
             top: 70%;
             left: 50%; /* Adjusted left value to center the paragraph */
             transform: translateX(-50%); /* Center the paragraph horizontally */
             color: rgb(255, 255, 255); /* Change text color to white for better visibility on the image */
-}
-.logo-txt h4 {
-    position: absolute;
-    bottom: 4rem;
-    color: black ;
-}
-       
+        }
+        .logo-txt h4 {
+            position: absolute;
+            bottom: 4rem;
+            color: black ;
+        }
+        .logout{
+            padding-bottom:4px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 5px;
+            width: 100px; /* Adjust the width as needed */
+            height: auto;
+        }
+            
     </style>
 </head>
 <body>
@@ -86,8 +96,9 @@
         </div>
         <div class="col-md-4 no-gutters">
             <div class="rightside d-flex justify-content-center align-items-center">
+                <div class="logout"><a href="home.html" class="logout-button btn btn-danger">Logout</a></div>
                 <div class="border-box">
-                    <p >Hey <span id="username">username</span>, hope you have a good day!!</p>
+                    <p >Hey <?php echo $_SESSION['username']; ?>, hope you have a good day!!</p>
                     <div class="d-flex justify-content-between">
                         <a href="addnew.html"><button>NEW</button></a>
                         <a href="modify.html"><button>MODIFY</button></a>

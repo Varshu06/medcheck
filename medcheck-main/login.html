@@ -77,9 +77,8 @@
 </head>
 <body>
     <!-- Include the PHP file -->
-
+    <form id="loginForm" action="login.php" method="POST" onsubmit="return validateForm()">
     <img id="logo" src="logo1.png" alt="Logo">
-    <form id="loginForm" onsubmit="return validateForm()">
             <h2>Login</h2>
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
@@ -91,30 +90,24 @@
     </form>
     <script>
         function validateForm() {
-                var username = document.getElementById('username').value;
-                var password = document.getElementById('password').value;
-                var usernameError = document.getElementById('usernameError');
-                var passwordError = document.getElementById('passwordError');
-                var isValid = true;
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
 
-                // Reset error messages
-                usernameError.textContent = '';
-                passwordError.textContent = '';
+            if (username.trim() == '') {
+                alert('Please enter your username.');
+                return false; // Prevent form submission
+            }
 
-                // Validate username
-                if (username === '') {
-                    usernameError.textContent = 'Username is required';
-                    isValid = false;
-                }
+            if (password.trim() == '') {
+                alert('Please enter your password.');
+                return false; // Prevent form submission
+            }
 
-                // Validate password
-                if (password === '') {
-                    passwordError.textContent = 'Password is required';
-                    isValid = false;
-                }
+            // You can add more complex validation if needed
 
-                return isValid;
-                }
+            // If validation passes, allow form submission
+            return true;
+        }
     </script>
 </body>
 </html>

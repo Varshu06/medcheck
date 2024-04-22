@@ -4,6 +4,7 @@ $host = "localhost";
 $username = "root";
 $password = "";
 $database = "medcheck";
+session_start();
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $database);
@@ -19,38 +20,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $check_username_sql = "SELECT username FROM signup WHERE username = ?";
-    $check_stmt = $conn->prepare($check_username_sql);
+    // Prepare SQL statement to select user data from the database
+    $check_user_sql = "SELECT password FROM signup WHERE username = ?";
+    $check_stmt = $conn->prepare($check_user_sql);
     $check_stmt->bind_param("s", $username);
     $check_stmt->execute();
     $check_stmt->store_result();
 
-    if ($check_stmt->num_rows > 0) {
-        // Username already exists, display a message
-        echo "Username already exists. Please choose a different username.";
-    } else {
-        // Username is available, proceed with insertion
-        // Hash the password for security
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    // Verify the password
+    if ($check_stmt->num_rows == 1) {
+        // Username exists, fetch the password from the database
+        $check_stmt->bind_result($stored_password);
+        $check_stmt->fetch();
 
-        // Prepare SQL statement to insert data into the database
-        $sql = "INSERT INTO signup (username, password) VALUES (?, ?)";
-
-        // Prepare and bind parameters
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $username, $hashed_password);
-
-        // Execute the query
-        if ($stmt->execute()) {
-            // Redirect to login page
-            header("Location: login.html");
-            exit(); // Make sure no further code execution happens after redirection
+        // Compare stored plaintext password with the password entered by the user
+        if ($password === $stored_password) {
+            // Password is correct, store the username in a session variable
+            $_SESSION['username'] = $username;
+            echo '<script>
+            setTimeout(function() {
+                window.location.href = "after login.html";
+            }, 1000); // 1000 milliseconds = 1 second
+            </script>';
+            exit();
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            // Password is incorrect, show alert to the user
+            echo '<script>
+            alert("Incorrect password.");
+            setTimeout(function() {
+                window.location.href = "login.html";
+            }, 1000); // 1000 milliseconds = 1 second
+            </script>';
         }
-
-        // Close statement
-        $stmt->close();
+    } else {
+        // Username does not exist, show alert to the user
+        echo '<script>
+        alert("Username not found.");
+        setTimeout(function() {
+            window.location.href = "login.html";
+        }, 1000); // 1000 milliseconds = 1 second
+        </script>';
     }
 
     // Close statement
