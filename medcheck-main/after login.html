@@ -56,7 +56,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin: 10px;
+            
         }
         .h4 {
             top: 70%;
@@ -96,7 +96,8 @@
         </div>
         <div class="col-md-4 no-gutters">
             <div class="rightside d-flex justify-content-center align-items-center">
-                <div class="logout"><a href="home.html" class="logout-button btn btn-danger">Logout</a></div>
+                <div class="logout"><button onclick="confirmLogout()" class="btn btn-danger">Logout</button></div>
+                
                 <div class="border-box">
                     <p >Hey <?php echo $_SESSION['username']; ?>, hope you have a good day!!</p>
                     <div class="d-flex justify-content-between">
@@ -107,5 +108,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function confirmLogout() {
+            if (confirm("Are you sure you want to logout?")) {
+                window.location.href = "home.html";
+            }
+        }
+    </script>
 </body>
 </html>
