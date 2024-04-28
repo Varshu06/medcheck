@@ -1,79 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Reminder App - Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Hospital-hallway.jpg') ; /* Replace 'background.jpg' with your image path */
-            background-size: cover;
-            background-position: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .modify {
-            
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-        }
-        #logo {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #0A4F51;
+    }
+    .container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff57;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    #logo {
             position: absolute;
             top: 20px;
             left: 20px;
             width: 100px; /* Adjust the width as needed */
             height: auto;
         }
-        form h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        input[type="text"],
-        input[type="email"] {
-            width: calc(70% - 10px); /* Adjust the width as needed */
-            padding: 10px;
-            margin-top: 7%;
-            margin-bottom: 20px;
-            
-            border: 1px solid #9e9e9e;
-            border-radius: 4px;
-            background-color: #fffffff8;
-        }
-        button {
-            background-color: #0A4F51;
-            color: #c7ae64;
-            padding: 9px 16px; /* Adjust padding as needed */
-            margin: 3px 3px 3px 10px; /* Adjust margin as needed */
-            border: none;
-            border-radius: 4px;
-            font-size: medium;
-            cursor: pointer;
-            width: calc(30% - 10px); /* Adjust the width as needed */
-        }
-        button:hover {
-            background-color: #107b7e;
-        }
-        .forgot-password {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .error {
-            color: red;
-        }
-    </style>
+    h2 {
+        text-align: center;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="time"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 3px solid #0a4f51bf;
+        box-sizing: border-box;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #0A4F51;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color:#107b7e ;
+    }
+</style>
 </head>
 <body>
     <img id="logo" src="logo1.png" alt="Logo">
-    <div class="modify">
-        <input type="text" id="paitentid" name="Patient ID" placeholder="Patient ID" required>
-        <button>Go</button>
-    </div>
+
+<div class="container">
+    <h2>Create Patient Record</h2>
+    
+    <form id="signupForm" enctype="multipart/form-data" action="modify.php" method="post">
+        <div class="form-group">
+            <label for="pat_id">Patient ID:</label>
+            <input type="text" id="pat_id" name="pat_id" value="Populate with fetched patient ID" required>
+        </div>
+        <!-- Other patient details similarly -->
+        <!-- Do the same for doctor details -->
+        
+        <!-- Prescription Details -->
+        <h2>Prescription Details</h2>
+        <div class="form-group">
+            <label for="tabletName">Tablet Name:</label>
+            <input type="text" name="tabletName[]" required>
+        </div>
+        <div id="tabletDetails" class="tablet-details">
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity[]" required>
+            <label for="intakeTime">Intake Time:</label>
+            <select name="intakeTime[]" required>
+                <option value="morning-before">Morning - Before</option>
+                <option value="morning-after">Morning - After</option>
+                <option value="afternoon-before">Afternoon - Before</option>
+                <option value="afternoon-after">Afternoon - After</option>
+                <option value="dinner-before">Dinner - Before</option>
+                <option value="dinner-after">Dinner - After</option>
+            </select>
+        </div>
+        <button type="button" onclick="addTablet()">Add Tablet</button>
+            
+       
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<script>
+    function addTablet() {
+        var tabletDetails = document.getElementById('tabletDetails');
+        var newTablet = document.createElement('div');
+        newTablet.classList.add('tablet-details');
+        newTablet.innerHTML = `
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity[]" required>
+            <label for="intakeTime">Intake Time:</label>
+            <select name="intakeTime[]" required>
+                <option value="morning-before">Morning - Before</option>
+                <option value="morning-after">Morning - After</option>
+                <option value="afternoon-before">Afternoon - Before</option>
+                <option value="afternoon-after">Afternoon - After</option>
+                <option value="dinner-before">Dinner - Before</option>
+                <option value="dinner-after">Dinner - After</option>
+            </select>
+            
+        `;
+        tabletDetails.appendChild(newTablet);
+    }
+</script>
+
 </body>
 </html>
