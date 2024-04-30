@@ -35,14 +35,22 @@ $stmt->bind_param("ississssssss", $pat_id, $pat_name, $age, $phno, $address, $di
 for ($i = 0; $i < count($tabletNames); $i++) {
     $tabletName = $tabletNames[$i];
     $quantity = $quantities[$i];
-    $intakeTime = $intakeTimes[$i];
-    $time = $times[$i];
+    
+    // Split intake time into separate times
+    $intakeTimesArray = explode(" ", $intakeTimes[$i]);
+    $timesArray = explode(" ", $times[$i]);
 
-    // Execute the prepared statement
-    if ($stmt->execute()) {
-        echo "Record added successfully";
-    } else {
-        echo "Error: " . $stmt->error;
+    // Insert a record for each intake time
+    for ($j = 0; $j < count($intakeTimesArray); $j++) {
+        $intakeTime = $intakeTimesArray[$j];
+        $time = $timesArray[$j];
+
+        // Execute the prepared statement
+        if ($stmt->execute()) {
+            echo "Record added successfully";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
     }
 }
 

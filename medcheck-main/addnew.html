@@ -136,6 +136,8 @@
         var newTablet = document.createElement('div');
         newTablet.classList.add('tablet-details');
         newTablet.innerHTML = `
+            <label for="tabletName">Tablet Name:</label>
+            <input type="text" name="tabletName[]" required>
             <label for="quantity">Quantity:</label>
             <input type="number" name="quantity[]" required>
             <label for="intakeTime">Intake Time:</label>
